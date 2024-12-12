@@ -7,9 +7,10 @@ from django.shortcuts import render, get_object_or_404
 from django.template.exceptions import TemplateDoesNotExist
 from django.template.loader import get_template
 from django.urls import reverse_lazy
-from django.views.generic.edit import UpdateView
+from django.views.generic.base import TemplateView
+from django.views.generic.edit import UpdateView, CreateView
 
-from main.forms import ProfileEditForm
+from main.forms import ProfileEditForm, RegisterForm
 from main.models import AdvUser
 
 
@@ -61,3 +62,14 @@ class PasswordEditView(SuccessMessageMixin, LoginRequiredMixin,
     template_name = 'main/password_edit.html'
     success_url = reverse_lazy('main:profile')
     success_message = 'Пароль пользователя изменён'
+
+
+class RegisterView(CreateView):
+    model = AdvUser
+    template_name = 'main/register.html'
+    form_class = RegisterForm
+    success_url = reverse_lazy('main:register_done')
+
+
+class RegisterDoneView(TemplateView):
+    template_name = 'main/register_done.html'
