@@ -140,10 +140,3 @@ def rubric_bbs(request, pk):
     context = {'rubric': rubric, 'page': page, 'bbs': page.object_list,
                'form': form}
     return render(request, 'main/rubric_bbs.html', context)
-
-
-def bb_detail(request, rubric_pk, pk):
-    bb = get_object_or_404(Bb, pk=pk)
-    ais = bb.additionalimage_set.all()
-    context = {'bb': bb, 'ais': ais}
-    return render(request, 'main/bb_detail.html', context)
